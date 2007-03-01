@@ -71,6 +71,7 @@ public class Player implements Serializable {
     private String login;
     @OneToMany(mappedBy = "coordinador")
     private ArrayList<LeagueGroup> gruposCoordinados;
+    @Column(name = "PHOTO")
     private ImageIcon photo;
     
     public LeagueGroup getLeagueGroup() {

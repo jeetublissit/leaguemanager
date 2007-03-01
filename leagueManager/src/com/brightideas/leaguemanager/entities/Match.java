@@ -35,6 +35,38 @@ public class Match implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    public static final int PENDING = 0;
+    public static final int PLAYED_NOT_VALIDATED = 1;
+    public static final int PLAYED = 2;
+            
+    @ManyToOne
+    private Player player1;
+    @ManyToOne
+    private Player player2;
+    @Column(name = "PLAYER1SETS")
+    private Integer player1Sets;
+    @Column(name = "PLAYER2SETS")
+    private Integer player2Sets;
+    @OneToOne
+    private Player winner;
+    @OneToOne
+    private Player firstValidator;
+    @OneToOne
+    private Player secondValidator;
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "VALIDATIONDATE")
+    private Date validationDate;
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "SECONDVALIDATIONDATE")
+    private Date secondValidationDate;
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "PLAYDATE")
+    private Date playDate;
+    @ManyToOne
+    private LeagueGroup leagueGroup;
+    @Column(name = "GROUPSTATE")
+    private int groupState = PENDING;
+    
     
     /** Creates a new instance of Match */
     public Match() {
@@ -96,36 +128,7 @@ public class Match implements Serializable {
     public String toString() {
         return "com.brightideas.leaguemanager.entities.Match[id=" + id + "]";
     }
-    public static final int PENDING = 0;
-    public static final int PLAYED_NOT_VALIDATED = 1;
-    public static final int PLAYED = 2;
     
-    
-  
-    @ManyToOne
-    private Player player1;
-    @ManyToOne
-    private Player player2;
-     
-    private Integer player1Sets;
-    private Integer player2Sets;
-    @OneToOne
-    private Player winner;
-    @OneToOne
-    private Player firstValidator;
-    @OneToOne
-    private Player secondValidator;
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "VALIDATIONDATE")
-    private Date validationDate;
-    @Temporal(value = TemporalType.DATE)
-    private Date secondValidationDate;
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "PLAYDATE")
-    private Date playDate;
-    @ManyToOne
-    private LeagueGroup leagueGroup;
-    private int groupState = PENDING;
     
     public void setPlayer1(Player player1) {
         this.player1 = player1;
@@ -241,7 +244,7 @@ public class Match implements Serializable {
             }
         }
         return false;
-    }        
+    }
     
     public void setResult(Integer player1Sets, Integer player2Sets, Date playDate) {
         this.player1Sets = player1Sets;

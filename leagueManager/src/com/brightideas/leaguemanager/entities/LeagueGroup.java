@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,7 +44,7 @@ public class LeagueGroup implements Serializable {
     @ManyToOne
     private Player coordinador;
 
-    
+    @Column(name = "GROUPNAME")
     private String groupName;
     
     /** Creates a new instance of GroupE */
@@ -200,9 +201,4 @@ public class LeagueGroup implements Serializable {
         }
         return matches;
     }
-    
-    
-    
-    
-    
 }
